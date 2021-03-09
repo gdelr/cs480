@@ -1,0 +1,121 @@
+#ifndef BREADTH_FIRST_SEARCH_H
+#define BREADTH_FIRST_SEARCH_H
+#include <queue>
+#include <list>
+#include <iostream>
+#include "puzzle.h"
+
+using namespace std;
+
+class Graph{
+  queue<Puzzle*> Q;
+  list<Puzzle> foundStates;
+  list<Puzzle>::iterator itt;
+
+public:
+  Graph(Puzzle *s){
+    (*s).color='g';
+    Q.push(s);
+  }
+
+  int BFS(){
+    while(Q.size()!=0){
+      if((*Q.front()).isGoalState()){
+	cout<<"Goal found"<<endl;
+	(*Q.front()).printState();
+	return 0;
+      }
+      else{
+	if((*Q.front()).canMoveUp()){
+	  bool found=false;
+	  Puzzle *temp=new Puzzle((*Q.front()).upChild().currentState);
+	  itt=foundStates.begin();
+	  while(itt!=foundStates.end()){
+	    if(*itt==*temp){
+	      //(*itt).printState();
+	      //(*temp).printState();
+	      found=true;
+	      break;
+	    }
+	    itt++;
+	  }
+	  if(!found){
+	    Q.push(temp);
+	    cout<<"Queue Size: "<<Q.size()<<endl;
+	  }
+	}
+        if((*Q.front()).canMoveDown()){
+	  bool found=false;
+	  Puzzle *temp=new Puzzle((*Q.front()).downChild().currentState);
+	  itt=foundStates.begin();
+	  while(itt!=foundStates.end()){
+	    if(*itt==*temp){
+	      //(*itt).printState();
+	      //(*temp).printState();
+	      found=true;
+	      break;
+	    }
+	    itt++;
+	  }
+	  if(!found){
+	    //cout<<"==="<<endl;
+	    Q.push(temp);
+	    cout<<"Queue Size: "<<Q.size()<<endl;
+	  }
+	}
+	if((*Q.front()).canMoveLeft()){
+	  bool found=false;
+
+	  Puzzle *temp=new Puzzle((*Q.front()).leftChild().currentState);
+	  itt=foundStates.begin();
+	  while(itt!=foundStates.end()){
+	    if(*itt==*temp){
+	      //(*itt).printState();
+	      //(*temp).printState();
+	      found=true;
+	      break;
+	    }
+	    itt++;
+	  }
+	  if(!found){
+	    //cout<<"==="<<endl;
+	    Q.push(temp);
+	    cout<<"Queue Size: "<<Q.size()<<endl;
+	  }
+	}
+	if((*Q.front()).canMoveRight()){
+	  bool found=false;
+	  Puzzle *temp=new Puzzle((*Q.front()).rightChild().currentState);
+	  itt=foundStates.begin();
+	  while(itt!=foundStates.end()){
+	    if(*itt==*temp){
+	      //(*itt).printState();
+	      //(*temp).printState();
+	      found=true;
+	      break;
+	    }
+	    itt++;
+	  }
+	  if(!found){
+	    //cout<<"==="<<endl;
+	    Q.push(temp);
+	    cout<<"Queue Size: "<<Q.size()<<endl;
+	  }
+	}
+	(*Q.front()).printState();
+	foundStates.push_back((*Q.front()));
+	Q.pop();
+	cout<<"List Size: "<<foundStates.size()<<endl;
+	cout<<"Queue Size: "<<Q.size()<<endl;
+	
+      }
+    }
+    return -1;
+  }
+
+  
+};
+
+
+
+#endif 

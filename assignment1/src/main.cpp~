@@ -1,0 +1,39 @@
+#include <iostream>
+#include <iomanip>
+
+#include "../include/puzzle.h"
+#include "../include/Breadth_first_Search.h"
+
+using namespace std;
+
+int main(){
+  
+  int initialState[5][5]={{9,24,3,5,17},
+  			  {6,0,13,19,10},
+  			  {11,21,12,1,20},
+  			  {16,4,14,22,15},
+  			  {8,18,23,2,7}};
+  
+  /*
+  int initialState[5][5]={{1,2,3,4,5},
+		       {6,7,8,9,10},
+		       {11,12,13,19,14},
+		       {16,17,23,18,15},
+		       {21,22,0,24,20}};
+  */
+
+  
+  Puzzle s(initialState);
+  //Puzzle l= s.leftChild();
+
+  s.printState();
+  //l.printState();
+  Graph g(initialState);
+
+  g.BFS();
+  
+  
+  
+  return 0;
+  
+}
